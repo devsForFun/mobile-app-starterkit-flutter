@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../data/repositories/authentication/authentication_repo.dart';
 import '../../../../utils/popups/loaders.dart';
-import '../../../home/home.dart';
+import '../../../../navigation_menu.dart';
 
 class LoginController extends GetxController {
   final SupabaseClient supabase = Supabase.instance.client;
@@ -17,7 +17,7 @@ class LoginController extends GetxController {
           title: 'Success!',
           message: 'Signed in successfully',
         );
-        Get.to(() => const HomeScreen());
+        Get.to(() => const NavigationMenu());
       }
     } catch (e) {
       KLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
