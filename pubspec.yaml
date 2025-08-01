@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.2.1
+  flutter_native_splash: ^2.4.6
   get: ^4.7.2
   google_sign_in: ^7.1.1
   iconsax: ^0.0.8
