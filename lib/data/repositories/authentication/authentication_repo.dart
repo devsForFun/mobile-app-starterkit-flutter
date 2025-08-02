@@ -1,12 +1,40 @@
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../../../features/authentication/screens/login/login.dart';
+import '../../../features/authentication/screens/onboarding/on_boarding.dart';
+import '../../../navigation_menu.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
+
+  final deviceStorage = GetStorage();
   final supabase = Supabase.instance.client;
 
+  @override
+  void onReady() {
+    FlutterNativeSplash.remove();
+    screenRedirect();
+  }
+
+  Future<void> screenRedirect() async {
+    final user = supabase.auth.currentUser;
+
+    if (user != null) {
+      Get.offAll(() => const NavigationMenu());
+    } else {
+      // Local Storage
+      deviceStorage.writeIfNull('isFirstTime', true);
+      deviceStorage.read('isFirstTime') != true
+          ? Get.offAll(() => const LoginScreen())
+          : Get.offAll(() => const OnBoardingScreen());
+    }
+  }
+
+  // Sign In with Google
   Future<AuthResponse> googleSignin() async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn.instance;
@@ -30,6 +58,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
+  // Sign Out
   Future<void> signout() async {
     try {
       await supabase.auth.signOut();
