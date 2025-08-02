@@ -10,12 +10,15 @@ dependencies:
   connectivity_plus: ^6.1.4
   flutter:
     sdk: flutter
+  flutter_animate: ^4.5.2
   flutter_dotenv: ^5.2.1
   flutter_native_splash: ^2.4.6
   get: ^4.7.2
+  get_storage: ^2.1.1
   google_sign_in: ^7.1.1
   iconsax: ^0.0.8
   intl: ^0.20.2
+  smooth_page_indicator: ^1.2.1
   supabase_flutter: ^2.9.1
   url_launcher: ^6.3.2
 
@@ -29,4 +32,5 @@ flutter:
   assets:
     - .env
     - assets/logos/
+    - assets/images/on_boarding_images/
     
