@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_template/data/repositories/authentication/authentication_repo.dart';
-import 'package:flutter_template/features/authentication/screens/login/login.dart';
+import 'package:flutter_template/utils/constants/colors.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'bindings/general_bindings.dart';
 import 'utils/theme/theme.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // Widgets Binding
+  final WidgetsBinding widgetBinding =
+      WidgetsFlutterBinding.ensureInitialized();
+
+  // GetX Local Storage
+  await GetStorage.init();
+
+  // -- Await Splash until other items load
+  FlutterNativeSplash.preserve(widgetsBinding: widgetBinding);
 
   // Load environment variables
   await dotenv.load(fileName: ".env");
@@ -31,7 +42,11 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: KAppTheme.lightTheme,
       darkTheme: KAppTheme.darkTheme,
-      home: const LoginScreen(),
+      initialBinding: GeneralBindings(),
+      home: const Scaffold(
+        backgroundColor: KColors.primary,
+        body: Center(child: CircularProgressIndicator(color: Colors.white)),
+      ),
     );
   }
 }
