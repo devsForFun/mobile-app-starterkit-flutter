@@ -2,6 +2,8 @@
 
 This is a Flutter template with a pre-configured splash screen This is part of a comprehensive template that will include common features like onboarding, authentication, and more.
 
+> More details and screenshots coming soon...
+
 ## 1. Splash Screen Implementation
 
 This template includes a fully configured splash screen with:
